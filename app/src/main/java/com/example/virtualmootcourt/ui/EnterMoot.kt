@@ -11,16 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,15 +25,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.virtualmootcourt.R
+import com.example.virtualmootcourt.ui.components.EntryButton
 import com.example.virtualmootcourt.ui.components.InputField
 import com.example.virtualmootcourt.ui.ui.theme.VirtualMootCourtTheme
 
 @Composable
 fun EnterMootScreen(modifier: Modifier = Modifier) {
 
-    var mootCode by remember { mutableStateOf("") } //moot code from email or smth .
+    var mootCode by rememberSaveable { mutableStateOf("") } //moot code from email or smth .
 
     Box( //Box is chosen to stack components above sathyabama image
         modifier = modifier
@@ -76,35 +71,17 @@ fun EnterMootScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Column {//column to container label and textfield
-                        Text(
-                            text = stringResource(R.string.user_code_label),
-                            color = Color.White,
-                            modifier = Modifier.padding(5.dp),
-                            fontSize = 17.sp
-                        )
-                        InputField( //CommonUI.kt function
-                            value = mootCode,
-                            change = { mootCode = it}
-                        )
-                    }
+                    InputField( //CommonUI.kt function
+                        text = stringResource(id = R.string.user_code_label),
+                        value = mootCode,
+                        change = { mootCode = it}
+                    )
                 }
                 Spacer(modifier = modifier.height(35.dp))
-                Column {// tbh coulda went for any other container too but idk why column
-                    Button( // button to navigate to the scene in unity, ngl - gonna be hard fr
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF91795E)),
-                        modifier = Modifier
-                            .height(50.dp)
-                            .width(120.dp),
-                        shape = RoundedCornerShape(25.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.enter_button),
-                            fontSize = 17.sp
-                        )
-                    }
-                }
+                EntryButton(
+                    onClick = { },
+                    text = stringResource(id = R.string.enter_button)
+                )
             }
         }
     }

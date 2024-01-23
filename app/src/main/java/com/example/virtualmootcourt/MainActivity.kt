@@ -92,9 +92,7 @@ fun App() {
         composable(
             route = AppScreens.ConsentSelection.name
         ) {
-            ConsentAndSelectionScreen (
-                onSubmitButtonCLicked = {}
-            )
+            ConsentAndSelectionScreen ()
         }
     }
 }

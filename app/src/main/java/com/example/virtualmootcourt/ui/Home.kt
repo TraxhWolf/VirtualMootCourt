@@ -10,21 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.virtualmootcourt.R
+import com.example.virtualmootcourt.ui.components.HomeButton
 import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
 
 @Composable
@@ -66,33 +61,15 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Button( //login
+                HomeButton(
                     onClick = onLoginButtonClicked,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF131D24)),
-                    shape = RoundedCornerShape(10.dp),
-                    modifier = modifier
-                        .width(280.dp)
-                        .height(40.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.login_button),
-                        color = Color.White
-                    )
-                }
+                    text = stringResource(id = R.string.login_button)
+                )
                 Spacer(modifier = modifier.height(30.dp))
-                Button( // enter moot
+                HomeButton(
                     onClick = onEnterMootButtonClicked,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF131D24)),
-                    shape = RoundedCornerShape(10.dp),
-                    modifier = modifier
-                        .width(280.dp)
-                        .height(40.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.enter_moot_button),
-                        color = Color.White
-                    )
-                }
+                    text = stringResource(id = R.string.enter_moot_button)
+                )
             }
         }
     }
