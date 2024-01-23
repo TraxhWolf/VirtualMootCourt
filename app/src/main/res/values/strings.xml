@@ -54,4 +54,5 @@
     <string name="title_activity_enter_moot">EnterMoot</string>
     <string name="enter_button">ENTER</string>
     <string name="user_code_label">User Code</string>
+    <string name="visibility_icon">password visibility icon</string>
 </resources>
