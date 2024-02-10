@@ -1,4 +1,4 @@
-package com.example.virtualmootcourt.ui
+package com.example.virtualmootcourt.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
@@ -31,9 +31,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.virtualmootcourt.R
+import com.example.virtualmootcourt.data.consentAndSelection.CasUIEvent
+import com.example.virtualmootcourt.data.consentAndSelection.CasViewModel
+import com.example.virtualmootcourt.navigation.Screen
+import com.example.virtualmootcourt.navigation.SystemBackButtonHandler
+import com.example.virtualmootcourt.navigation.VMCNavigation
 import com.example.virtualmootcourt.ui.components.AppButton
+import com.example.virtualmootcourt.ui.components.ConfirmationDialog
+import com.example.virtualmootcourt.ui.components.FinalInputField
 import com.example.virtualmootcourt.ui.components.InputField
 import com.example.virtualmootcourt.ui.components.NavHeader
 import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
@@ -42,23 +49,18 @@ import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
 //main render composable
 fun ConsentAndSelectionScreen(
     modifier: Modifier = Modifier,
-    //onSubmitButtonCLicked: () -> Unit
+    casViewModel: CasViewModel = viewModel()
 ) {
-
-    var emailJudge by remember { mutableStateOf("") } //judge email
-    var emailPetitioner by remember { mutableStateOf("") } //advocate1(petitioner) email
-    var emailRespondent by remember { mutableStateOf("") } //advocate2(respondent) email
-    var daysRequired by remember { mutableStateOf("") } //no.of days needed 👍
     var dialogBox by remember { mutableStateOf(false) }
-
     when{
         dialogBox -> {
             ConfirmationDialog(
-                onDismissRequest = { dialogBox = false }
+                onDismissRequest = { dialogBox = false },
+                text = "You have registered successfully.",
+                buttonText = "DONE"
             )
         }
     }
-
     Box{//box to stack
         Image(// moot image
             painter = painterResource(id = R.drawable.mainappbg),
@@ -106,7 +108,19 @@ fun ConsentAndSelectionScreen(
                             end = 25.dp
                         )
                 ) {
-                    Spacer(modifier = modifier.height(80.dp))
+                    Spacer(modifier = modifier.height(40.dp))
+                    Row(
+                        modifier = modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.consent_screen_header),
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            color = Color.White
+                        )
+                    }
+                    Spacer(modifier = modifier.height(40.dp))
                     Column( //actual container
                         modifier = modifier
                             .fillMaxWidth()
@@ -124,13 +138,7 @@ fun ConsentAndSelectionScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = stringResource(R.string.consent_screen_header),
-                            color = Color.White,
-                            fontSize = 20.sp
-                        )
-                        Spacer(modifier = modifier.height(30.dp))
-                        Text(
-                            text = stringResource(id = R.string.consent_text),
+                            text = "I have confirmed my participation in this moot session and hereby provide my details for the same.",
                             color = Color.White,
                             textAlign = TextAlign.Justify
                         )
@@ -143,26 +151,22 @@ fun ConsentAndSelectionScreen(
                         Spacer(modifier = modifier.height(15.dp))
                         InputField( //CommonUI.kt function
                             text = stringResource(id = R.string.judge),
-                            value = emailJudge,
-                            change = { emailJudge = it }
+                            change = { casViewModel.onEvent(CasUIEvent.JudgeEmailEntered(it)) }
                         )
                         Spacer(modifier = modifier.height(15.dp))
                         InputField( //CommonUI.kt function
                             text = stringResource(id = R.string.petitioner),
-                            value = emailPetitioner,
-                            change = { emailPetitioner = it }
+                            change = { casViewModel.onEvent(CasUIEvent.PetitionerEmailEntered(it)) }
                         )
                         Spacer(modifier = modifier.height(15.dp))
                         InputField( //CommonUI.kt function
                             text = stringResource(id = R.string.respondent),
-                            value = emailRespondent,
-                            change = { emailRespondent = it }
+                            change = { casViewModel.onEvent(CasUIEvent.RespondentEmailEntered(it)) }
                         )
                         Spacer(modifier = modifier.height(15.dp))
-                        InputField( //CommonUI.kt function
+                        FinalInputField( //CommonUI.kt function
                             text = stringResource(id = R.string.days_for_preparation),
-                            value = daysRequired,
-                            change = { daysRequired = it }
+                            change = { casViewModel.onEvent(CasUIEvent.NoOfDaysEntered(it)) }
                         )
                         Spacer(modifier = modifier.height(40.dp))
                         Row( //Button layout
@@ -170,7 +174,10 @@ fun ConsentAndSelectionScreen(
                             horizontalArrangement = Arrangement.Center
                         ) {
                             AppButton(
-                                onClick = { dialogBox = !dialogBox },
+                                onClick = {
+                                    dialogBox = !dialogBox
+                                    casViewModel.onEvent(CasUIEvent.CASSubmitButtonClicked)
+                                          },
                                 text = stringResource(id = R.string.submit_button)
                             )
                         }
@@ -179,34 +186,7 @@ fun ConsentAndSelectionScreen(
             }
         }
     }
-}
-
-@Composable
-fun ConfirmationDialog(
-    modifier: Modifier = Modifier,
-    onDismissRequest: () -> Unit
-) {
-    Dialog(onDismissRequest = onDismissRequest) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .background(
-                    color = Color(0xFF131D24),
-                    shape = RoundedCornerShape(
-                        size = 10.dp
-                    )
-                )
-                .padding(30.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "You have registered successfully.",
-                color = Color.White
-            )
-            Spacer(modifier = modifier.height(20.dp))
-            AppButton(onClick = { onDismissRequest() }, text = "DONE")
-        }
-    }
+    SystemBackButtonHandler { VMCNavigation.navigateTo(Screen.Problem) }
 }
 
 @Preview(showBackground = true)

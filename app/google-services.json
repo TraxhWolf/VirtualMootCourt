@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240875497498",
+    "project_id": "virtual-moot-court",
+    "storage_bucket": "virtual-moot-court.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240875497498:android:c6fc91352072c83df349a3",
+        "android_client_info": {
+          "package_name": "com.example.virtualmootcourt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtz50yvN_UhdeuaSuHTkV-7uE6ltkPDFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
