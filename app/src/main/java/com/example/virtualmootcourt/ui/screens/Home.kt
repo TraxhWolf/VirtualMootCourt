@@ -1,4 +1,4 @@
-package com.example.virtualmootcourt.ui
+package com.example.virtualmootcourt.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,15 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.virtualmootcourt.R
+import com.example.virtualmootcourt.navigation.Screen
+import com.example.virtualmootcourt.navigation.VMCNavigation
 import com.example.virtualmootcourt.ui.components.HomeButton
 import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
 
 @Composable
 // Below composable is the main function that renders the Home screen
 fun HomeScreen(
-    modifier: Modifier = Modifier,
-    onLoginButtonClicked: () -> Unit,
-    onEnterMootButtonClicked: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     Box( //Box to stack the contents above the college image
         modifier = modifier.fillMaxSize(),
@@ -62,12 +62,12 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 HomeButton(
-                    onClick = onLoginButtonClicked,
+                    onClick = { VMCNavigation.navigateTo(Screen.Login) },
                     text = stringResource(id = R.string.login_button)
                 )
                 Spacer(modifier = modifier.height(30.dp))
                 HomeButton(
-                    onClick = onEnterMootButtonClicked,
+                    onClick = { VMCNavigation.navigateTo(Screen.EnterMoot) },
                     text = stringResource(id = R.string.enter_moot_button)
                 )
             }
@@ -79,9 +79,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     VirtualMootCourtTheme {
-        HomeScreen(
-            onLoginButtonClicked = {},
-            onEnterMootButtonClicked = {}
-        )
+        HomeScreen()
     }
 }

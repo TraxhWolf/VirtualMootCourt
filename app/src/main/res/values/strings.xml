@@ -11,7 +11,7 @@
     <string name="lorem_text_dummy_2">Donec eget lectus sapien. Vivamus sit amet sem a ex mollis egestas. In pulvinar dolor metus, pulvinar ultrices nunc accumsan nec. Phasellus condimentum sit amet magna ac malesuada. Curabitur rutrum, metus a tincidunt condimentum, dui dui tempus elit, at tincidunt eros justo vel turpis. Vestibulum in diam velit. Praesent mollis facilisis magna eu elementum. Nunc in erat venenatis, finibus ipsum a, iaculis risus. Nulla vulputate accumsan velit, ut euismod nibh. Fusce ornare diam sed metus hendrerit, a venenatis ligula accumsan. Cras in diam sodales, viverra tortor quis, imperdiet ipsum.\n</string>
     <string name="lorem_text_dummy_3">Aliquam consequat urna odio, sed finibus justo tempor quis. Nulla viverra vitae leo non auctor. Donec molestie nisl venenatis tincidunt sollicitudin. Vestibulum sit amet nulla sed velit fringilla sagittis eu non dui. Integer fermentum ut justo a convallis. Nunc sit amet aliquet diam, condimentum congue mi. Donec est mauris, placerat id aliquet sit amet, condimentum et diam. Maecenas luctus interdum libero. Vivamus tempus facilisis euismod.</string>
     <string name="next_button">NEXT</string>
-    <string name="rules_screen_header">RULES:</string>
+    <string name="rules_screen_header">RULES</string>
     <string name="main_app_bg_image">Moot Court Background</string>
     <string name="title_activity_problem">Problem</string>
     <string name="main_problem_header">MOOT PROBLEM (CRIMINAL LAW)</string>
@@ -37,7 +37,7 @@
     <string name="p19">2. Whether the burden of proof of legal insanity on the part of Defence is at par with burden of proof on part of Prosecution</string>
     <string name="p20">3. The parties may raise any other issue on the given facts to advance arguments upon.</string>
     <string name="title_activity_consent_and_selection">ConsentAndSelection</string>
-    <string name="consent_screen_header">Consent of Participation:</string>
+    <string name="consent_screen_header">Consent of Participation</string>
     <string name="consent_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam eleifend feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam enim, egestas et enim sit amet, convallis imperdiet ante. Mauris pulvinar mi quam, quis laoreet lacus consequat sit</string>
     <string name="credential_label">Register number/ Username</string>
     <string name="password_label">Password</string>
@@ -55,4 +55,5 @@
     <string name="enter_button">ENTER</string>
     <string name="user_code_label">User Code</string>
     <string name="visibility_icon">password visibility icon</string>
+    <string name="credential_label_2">Regiser number/Email\n</string>
 </resources>

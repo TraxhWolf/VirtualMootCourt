@@ -1,4 +1,4 @@
-package com.example.virtualmootcourt.ui
+package com.example.virtualmootcourt.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,16 +7,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,16 +20,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.virtualmootcourt.R
+import com.example.virtualmootcourt.data.login.LoginUIEvent
+import com.example.virtualmootcourt.data.login.LoginViewModel
+import com.example.virtualmootcourt.navigation.Screen
+import com.example.virtualmootcourt.navigation.SystemBackButtonHandler
+import com.example.virtualmootcourt.navigation.VMCNavigation
 import com.example.virtualmootcourt.ui.components.EntryButton
 import com.example.virtualmootcourt.ui.components.InputField
-import com.example.virtualmootcourt.ui.ui.theme.VirtualMootCourtTheme
+import com.example.virtualmootcourt.ui.components.PasswordInputField
+import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
 
+//Yeah the below composable is for the main rendering of this login page
 @Composable
-fun EnterMootScreen(modifier: Modifier = Modifier) {
-
-    var mootCode by rememberSaveable { mutableStateOf("") } //moot code from email or smth .
-
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    loginViewModel: LoginViewModel = viewModel()
+) {
     Box( //Box is chosen to stack components above sathyabama image
         modifier = modifier
             .fillMaxSize()
@@ -66,31 +69,40 @@ fun EnterMootScreen(modifier: Modifier = Modifier) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Column(// main column
-                    modifier = modifier
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    InputField( //CommonUI.kt function
-                        text = stringResource(id = R.string.user_code_label),
-                        value = mootCode,
-                        change = { mootCode = it}
-                    )
-                }
+                InputField( //CommonUI.kt function
+                    text = stringResource(id = R.string.credential_label_2),
+                    change = { loginViewModel.onEvent(LoginUIEvent.RegisterNumberChanged(it)) }
+                )
+                PasswordInputField( //CommonUI.kt function
+                    text = stringResource(id = R.string.password_label),
+                    change = { loginViewModel.onEvent(LoginUIEvent.PasswordChanged(it)) }
+                )
                 Spacer(modifier = modifier.height(35.dp))
                 EntryButton(
-                    onClick = { },
-                    text = stringResource(id = R.string.enter_button)
+                    onClick = { loginViewModel.onEvent(LoginUIEvent.LoginButtonClicked) },
+                    text = stringResource(id = R.string.login_button)
                 )
             }
         }
+        /*if (loginViewModel.loginInProgress.value) {
+            Column(
+                modifier.fillMaxSize().background(Color.White),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                LinearProgressIndicator(
+                    color = Color.Black
+                )
+            }
+        }*/
     }
+    SystemBackButtonHandler { VMCNavigation.navigateTo(Screen.Home) }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun EnterMootPreview() {
+fun LoginPreview() {
     VirtualMootCourtTheme {
-        EnterMootScreen()
+        LoginScreen()
     }
 }
