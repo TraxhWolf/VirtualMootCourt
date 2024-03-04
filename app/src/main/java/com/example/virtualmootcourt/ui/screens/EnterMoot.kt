@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -29,6 +30,7 @@ import com.example.virtualmootcourt.R
 import com.example.virtualmootcourt.navigation.Screen
 import com.example.virtualmootcourt.navigation.SystemBackButtonHandler
 import com.example.virtualmootcourt.navigation.VMCNavigation
+import com.example.virtualmootcourt.ui.components.ConfirmationDialog
 import com.example.virtualmootcourt.ui.components.EntryButton
 import com.example.virtualmootcourt.ui.components.InputField
 import com.example.virtualmootcourt.ui.theme.VirtualMootCourtTheme
@@ -80,8 +82,18 @@ fun EnterMootScreen(modifier: Modifier = Modifier) {
                     )
                 }
                 Spacer(modifier = modifier.height(35.dp))
+                var dialogBox by remember { mutableStateOf(false) }
+                when{
+                    dialogBox -> {
+                        ConfirmationDialog(
+                            onDismissRequest = { dialogBox = false },
+                            text = "Your VR environment is ready!",
+                            buttonText = "DONE"
+                        )
+                    }
+                }
                 EntryButton(
-                    onClick = { },
+                    onClick = { dialogBox = !dialogBox },
                     text = stringResource(id = R.string.enter_button)
                 )
             }

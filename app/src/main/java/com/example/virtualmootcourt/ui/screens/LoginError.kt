@@ -67,14 +67,7 @@ fun LoginErrorScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "The credentials you have entered are wrong.",
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Spacer(modifier = modifier.height(7.dp))
-                Text(
-                    text = " Please try again.",
+                    text = "Invalid login credentials.",
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
                     color = Color.White
